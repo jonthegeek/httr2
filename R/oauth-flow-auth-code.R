@@ -235,6 +235,8 @@ normalize_redirect_uri <- function(redirect_uri,
 
   localhost <- parsed$hostname %in% c("localhost", "127.0.0.1")
 
+  uri <- url_build(parsed)
+
   if (localhost) {
     check_installed("httpuv", "desktop OAuth")
     if (is_hosted_session()) {
@@ -247,10 +249,11 @@ normalize_redirect_uri <- function(redirect_uri,
     if (is.null(parsed$port)) {
       parsed$port <- httpuv::randomPort()
     }
+    uri <- sub("/$", "", url_build(parsed))
   }
 
   list(
-    uri = url_build(parsed),
+    uri = uri,
     localhost = localhost,
     can_fetch_code = can_fetch_oauth_code(redirect_uri)
   )
