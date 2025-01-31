@@ -75,7 +75,7 @@ test_that("old args are deprecated", {
   expect_snapshot(
     redirect <- normalize_redirect_uri("http://localhost", port = 1234)
   )
-  expect_equal(redirect$uri, "http://localhost:1234/")
+  expect_equal(redirect$uri, "http://localhost:1234")
 
   expect_snapshot(
     redirect <- normalize_redirect_uri("http://x.com", host_name = "y.com")
